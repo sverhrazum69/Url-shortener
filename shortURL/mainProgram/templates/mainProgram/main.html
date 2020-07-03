@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Url shortener</title>
+    </head>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="original_url">
+            <button type="submit">get short url</button>
+        </form>
+        {{ shortUrl }}
+    </body>
+</html>
