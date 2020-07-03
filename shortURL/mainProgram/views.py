@@ -8,8 +8,13 @@ def mainPage(request):
     context = {}
     if request.method == 'POST':
         original_url = request.POST.get('original_url')
-        StoreURL.objects.create(url = original_url)
-        id = StoreURL.objects.latest('id').id
+        if original_url.startswith('https://') == False:
+            original_url = 'https://' + original_url
+        obj,created = StoreURL.objects.get_or_create(url = original_url)
+        if created:    
+            id = StoreURL.objects.latest('id').id
+        else:
+            id = obj.id
         shortUrl = request.get_host() + '/' + toBase62(id)
         
         context = {'shortUrl':shortUrl}
@@ -19,4 +24,5 @@ def mainPage(request):
 def redirectView(request,pk):
     url_id = fromBase62(pk)
     fullURL = get_object_or_404(StoreURL,id = url_id)
+    print(fullURL)
     return redirect(str(fullURL))
