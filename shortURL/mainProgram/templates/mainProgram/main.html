@@ -1,14 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta charset="utf-8">
         <title>Url shortener</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     </head>
     <body>
-        <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="original_url">
-            <button type="submit">get short url</button>
-        </form>
-        {{ shortUrl }}
+        <div class="content-wrapper">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Original URL:</label>
+                    <input type="text" name="original_url" class="form-control">
+                    <button type="submit" class="btn btn-primary">get short url</button>
+                </div>
+            </form>
+            <input type="text" class="form-control" placeholder="{{ shortUrl }}" readonly> 
+        </div>  
     </body>
 </html>
