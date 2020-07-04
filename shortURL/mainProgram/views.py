@@ -8,7 +8,7 @@ def mainPage(request):
     context = {}
     if request.method == 'POST':
         original_url = request.POST.get('original_url')
-        if original_url.startswith('https://') == False:
+        if not original_url.startswith('https://'):
             original_url = 'https://' + original_url
         obj,created = StoreURL.objects.get_or_create(url = original_url)
         if created:    
